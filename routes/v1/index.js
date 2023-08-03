@@ -3,8 +3,7 @@ import { getDatasetTechnologyNames, getTissueProviderNames } from './utils/api-e
 
 const routes = express.Router();
 
-routes.get('/technology-names', getDatasetTechnologyNames);
-routes.get('/tissue-provider-names', getTissueProviderNames);
-// routes.get('/ontology-term-occurences', getOntologyTermOccurences);
+routes.get('/technology-names', async (_req, res) => res.json(await getDatasetTechnologyNames()));
+routes.get('/tissue-provider-names', async (_req, res) => res.json(await getTissueProviderNames()));
 
 export default routes;
