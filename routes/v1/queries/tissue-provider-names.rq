@@ -1,0 +1,8 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ccf: <http://purl.org/ccf/>
+
+SELECT DISTINCT ?providerName
+WHERE {
+?tissueDonor a ccf:Donor ;
+            ccf:tissue_provider_name ?providerName .
+}    
