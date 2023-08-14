@@ -7,8 +7,7 @@ export function forwardSparqlQuery(method) {
     try {
       const {query} = req;
       const filter = queryParametersToFilter(query);
-      console.log(filter)
-      const result = await method(filter.minAge, filter.maxAge, filter.ontologyTerms, filter.sex);
+      const result = await method(filter);
       res.json(result);
     } catch (error) {
       // Handle errors here

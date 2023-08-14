@@ -7,8 +7,7 @@ routes.get('/technology-names', async (_req, res) => res.json(await getDatasetTe
 routes.get('/tissue-provider-names', async (_req, res) => res.json(await getTissueProviderNames()));
 routes.get('/ontology-term-occurences', async (_req, res) => res.json(await getOntologyTermOccurences()));
 */
-const handleOntologyTermOccurences = forwardSparqlQuery(getDatasetTechnologyNames)
-routes.get('/technology-names',handleOntologyTermOccurences);
-routes.get('/tissue-provider-names', async (_req, res) => res.json(await getTissueProviderNames()));
+routes.get('/technology-names',forwardSparqlQuery(getDatasetTechnologyNames));
+routes.get('/tissue-provider-names', forwardSparqlQuery(getDatasetTechnologyNames));
 routes.get('/ontology-term-occurences', forwardSparqlQuery(getOntologyTermOccurences));
 export default routes;

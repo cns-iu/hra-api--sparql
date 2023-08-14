@@ -11,6 +11,7 @@ WHERE {
     #}
   #}
 
+
   ?sample ccf:has_registration_location ?rui_location ;
           ccf:generates_dataset ?allTech ;
   		  ccf:comes_from ?tissueDonor .  
@@ -19,20 +20,12 @@ WHERE {
 
   ?tissueDonor ccf:sex ?sex ;
                ccf:age ?age ;
-               ccf:bmi ?bmi .
+               ccf:bmi ?bmi ;
+               ccf:tissue_provider_name ?tmc .
 
   
   ?allTech ccf:technology ?technology .
-  
-  
-  FILTER (?sex = "$sex")
-  FILTER (?age > $minAge && ?age < $maxAge)
-  #FILTER (?bmi > $minBMI && ?bmi < $maxBMI)
-  
-  FILTER(?annotation IN (<$ontologyTerms>))
 
-  # Filter by technologies
-  #FILTER (?technology IN ("LC"))
-  
+  #{{FILTER}}
 }
 GROUP BY ?annotation ?sex ?age 

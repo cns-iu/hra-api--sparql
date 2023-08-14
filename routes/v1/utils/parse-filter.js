@@ -3,12 +3,12 @@ import ParsedQs from 'qs';
 
 const FILTER_DEFAULTS = {
   sex: 'Both',
-  minAge: undefined,
-  maxAge: undefined,
-  minBMI: undefined,
-  maxBMI: undefined,
+  minAge: 1,
+  maxAge: 110,
+  minBMI: 13,
+  maxBMI: 83,
   tmc: [],
-  technologies: [],
+  technology: [],
   ontologyTerms: [],
   cellTypeTerms: [],
   spatialSearches: []
@@ -62,7 +62,7 @@ function parseRange(value, min, max) {
   return undefined;
 }
 
-function parseAge(value) {
+function parseAgeBMI(value) {
   if (!value ) {
     return undefined;
   }
@@ -117,20 +117,19 @@ function processParameter(result, key, value) {
       break;
 
     case 'age.min':
-      setIfDefined(result, 'minAge', parseAge(value));
+      setIfDefined(result, 'minAge', parseAgeBMI(value));
       break;
 
     case 'age.max':
-      setIfDefined(result, 'maxAge', parseAge(value));
+      setIfDefined(result, 'maxAge', parseAgeBMI(value));
       break;
 
-    case 'bmirange':
-    case 'bmi-range':
-      setIfDefined(result, 'bmiRange', parseRange(value, 13, 83));
+    case 'bmi.min':
+      setIfDefined(result, 'minBMI', parseAgeBMI(value));
       break;
 
-    case 'bmi':
-      setIfDefined(result, 'bmiRange', parseMinMaxRange(value, 13, 83));
+    case 'bmi.max':
+      setIfDefined(result, 'maxBMI', parseAgeBMI(value));
       break;
 
     case 'spatial':
@@ -143,7 +142,7 @@ function processParameter(result, key, value) {
       break;
 
     case 'technologies':
-      setIfDefined(result, 'technologies', parseArray(value));
+      setIfDefined(result, 'technology', parseArray(value));
       break;
 
     case 'ontologyterms':

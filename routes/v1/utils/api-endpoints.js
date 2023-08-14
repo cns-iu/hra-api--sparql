@@ -3,57 +3,95 @@ import { selectRemoteObjects, selectRemoteObjectsForOntology } from './sparql.js
 
 const sparqlEndpoint = 'https://lod.humanatlas.io/sparql';
 
-export async function getDatasetTechnologyNames() {
+export function filterSparqlQuery(sparqlQuery, filter = {}) {
+  const { ontologyTerms, minAge, maxAge, minBMI, maxBMI, sex, technology, tmc} = filter;
+  let sparqlFilter = '';
+  if (sex) {
+    sparqlFilter += `
+      FILTER(?sex = "${sex}")
+    `;
+  }
+  if (minAge && maxAge){
+    sparqlFilter += `
+      FILTER (?age > ${minAge} && ?age < ${maxAge})
+    `;
+  }
+  if (minBMI && maxBMI){
+    sparqlFilter += `
+      FILTER (?bmi > ${minBMI} && ?bmi < ${maxBMI})
+    `;
+  }
+  if (ontologyTerms?.length > 0) {
+    const terms = ontologyTerms.map(s => `<${s}>`).join(' ');    
+    sparqlFilter += `
+      FILTER(?annotation IN (${terms}))
+    `;
+  }
+  if (tmc?.length > 0) {
+    const providers = tmc.map(s => `"${s}"`).join(',');   
+    sparqlFilter += `
+      FILTER(?tmc IN (${providers}))
+    `;
+  }
+  if (technology?.length > 0) {
+    const technologies = technology.map(s => `"${s}"`).join(',');   
+    sparqlFilter += `
+      FILTER(?technology IN (${technologies}))
+    `;
+  }
+  return sparqlQuery.replace('#{{FILTER}}', sparqlFilter);
+}
 
-  const queryFilePath = 'routes/v1/queries/dataset-technology-names.rq';
-  const sparqlQuery = readFileSync(queryFilePath).toString();
-
+async function executeFilteredQuery(sparqlFile, filter) {
+  const sparqlQueryTemplate = readFileSync(sparqlFile).toString();
   try {
     // Get results as an array of objects
+    const sparqlQuery = filterSparqlQuery(sparqlQueryTemplate, filter);
     const results = await selectRemoteObjects(sparqlQuery, sparqlEndpoint);
     console.log('Results as array of objects:');
     console.log(results);
     return results;
-
   } catch (error) {
     console.error('Error executing SPARQL query:', error.message);
   }
 }
 
-export async function getTissueProviderNames() {
+function getSparqlFilePath(filename) {
+  return `routes/v1/queries/${filename}`;
+}
 
-  const queryFilePath = 'routes/v1/queries/tissue-provider-names.rq';
-  const sparqlQuery = readFileSync(queryFilePath).toString();
-  try {
-    // Get results as an array of objects
-    const results = await selectRemoteObjects(sparqlQuery, sparqlEndpoint);
-    console.log('Results as array of objects:');
-    console.log(results);
+export async function getDatasetTechnologyNames(filter) {
+  try{
+    const queryFilePath = getSparqlFilePath('dataset-technology-names.rq');
+    const results = executeFilteredQuery(queryFilePath, filter);
     return results;
-
-  } catch (error) {
+  }
+  catch (error){
     console.error('Error executing SPARQL query:', error.message);
   }
 }
 
-export async function getOntologyTermOccurences(minAge, maxAge, ontologyTerms, sex) {
-
-  const queryFilePath = 'routes/v1/queries/ontology-term-occurences.rq';
-  const sparqlQueryTemplate = readFileSync(queryFilePath).toString();
-  try {
-    // Get results as an array of objects
-    const sparqlQuery = sparqlQueryTemplate 
-                        .replace('$minAge',minAge)
-                        .replace('$maxAge',maxAge)
-                        .replace('$ontologyTerms',ontologyTerms)
-                        .replace("$sex",sex);
-    const results = await selectRemoteObjects(sparqlQuery, sparqlEndpoint);
-    console.log('Results as array of objects:');
-    console.log(results);
+export async function getTissueProviderNames(filter) {
+  try{
+    const queryFilePath = getSparqlFilePath('tissue-provider-names.rq');
+    const results = executeFilteredQuery(queryFilePath, filter);
     return results;
-
-  } catch (error) {
+  }
+  catch (error){
     console.error('Error executing SPARQL query:', error.message);
   }
+  
 }
+export async function getOntologyTermOccurences(filter) {
+  try{
+    const queryFilePath = getSparqlFilePath('ontology-term-occurences.rq');
+    const results = executeFilteredQuery(queryFilePath, filter);
+    return results;
+  }
+  catch (error){
+    console.error('Error executing SPARQL query:', error.message);
+  }
+
+}
+
 //getOntologyTermOccurences(10,100,0,40,"Female")

@@ -3,6 +3,6 @@ PREFIX ccf: <http://purl.org/ccf/>
 
 SELECT DISTINCT ?providerName
 WHERE {
-?tissueDonor a ccf:Donor ;
-            ccf:tissue_provider_name ?providerName .
+    ?sample ccf:comes_from ?tissueDonor .
+    ?tissueDonor ccf:tissue_provider_name ?providerName .
 }    
