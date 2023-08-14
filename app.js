@@ -1,16 +1,14 @@
-import createError from 'http-errors';
 import express from 'express';
-import path from 'path';
-import cookieParser from 'cookie-parser';
-import logger from 'morgan';
-
+import qs from 'qs';
 import v1Routes from './routes/v1/index.js';
 
 const app = express();
 
-
-
 app.use(express.json());
+
+app.set('query parser', function (str) {
+  return qs.parse(str, { allowDots: true });
+});
 
 app.use('/v1', v1Routes);
 app.get('/foo', (req, res) => res.send('bar'));

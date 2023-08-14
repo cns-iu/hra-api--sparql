@@ -8,6 +8,7 @@ import { SparqlEndpointFetcher } from 'fetch-sparql-endpoint';
  * @returns array of values
  */
 export async function selectRemoteObjects(query, sparqlEndpoint) {
+  console.log('query',query)
   const fetcher = new SparqlEndpointFetcher({});
   const stream = await fetcher.fetchBindings(sparqlEndpoint, query);
   return new Promise((resolve, reject) => {
@@ -23,6 +24,23 @@ export async function selectRemoteObjects(query, sparqlEndpoint) {
     });
     stream.on('end', () => {
       resolve(values);
+    });
+  });
+}
+export async function selectRemoteObjectsForOntology(query, sparqlEndpoint) {
+  const fetcher = new SparqlEndpointFetcher({});
+  const stream = await fetcher.fetchBindings(sparqlEndpoint, query);
+  return new Promise((resolve, reject) => {
+    const results = [];
+    stream.on('data', (bindings) => {
+      const result = Object.keys(bindings).reduce(
+        (acc, key) => ((acc[key] = bindings[key]?.value), acc),
+        {}
+      );
+      results.push(result);
+    });
+    stream.on('end', () => {
+      resolve(results);
     });
   });
 }
