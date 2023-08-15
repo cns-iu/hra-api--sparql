@@ -17,6 +17,8 @@ WHERE {
   		  ccf:comes_from ?tissueDonor .  
   ?rui_location a ccf:SpatialEntity ;
                 ccf:collides_with ?annotation .
+  
+  ?cell_type ccf:ccf_located_in ?annotation .
 
   ?tissueDonor ccf:sex ?sex ;
                ccf:age ?age ;
@@ -28,4 +30,5 @@ WHERE {
 
   #{{FILTER}}
 }
-GROUP BY ?annotation ?sex ?age 
+GROUP BY ?annotation ?sex ?age ?bmi ?technology 
+ORDER BY DESC(?count)

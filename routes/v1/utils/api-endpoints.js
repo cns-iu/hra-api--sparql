@@ -4,7 +4,7 @@ import { selectRemoteObjects, selectRemoteObjectsForOntology } from './sparql.js
 const sparqlEndpoint = 'https://lod.humanatlas.io/sparql';
 
 export function filterSparqlQuery(sparqlQuery, filter = {}) {
-  const { ontologyTerms, minAge, maxAge, minBMI, maxBMI, sex, technology, tmc} = filter;
+  const { ontologyTerms, cellTypeTerms, minAge, maxAge, minBMI, maxBMI, sex, technology, tmc} = filter;
   let sparqlFilter = '';
   if (sex) {
     sparqlFilter += `
@@ -25,6 +25,12 @@ export function filterSparqlQuery(sparqlQuery, filter = {}) {
     const terms = ontologyTerms.map(s => `<${s}>`).join(' ');    
     sparqlFilter += `
       FILTER(?annotation IN (${terms}))
+    `;
+  }
+  if (cellTypeTerms?.length > 0) {
+    const terms = cellTypeTerms.map(s => `<${s}>`).join(' ');    
+    sparqlFilter += `
+      FILTER(?cell_type IN (${terms}))
     `;
   }
   if (tmc?.length > 0) {
@@ -85,6 +91,18 @@ export async function getTissueProviderNames(filter) {
 export async function getOntologyTermOccurences(filter) {
   try{
     const queryFilePath = getSparqlFilePath('ontology-term-occurences.rq');
+    const results = executeFilteredQuery(queryFilePath, filter);
+    return results;
+  }
+  catch (error){
+    console.error('Error executing SPARQL query:', error.message);
+  }
+
+}
+
+export async function getCellTypeTermOccurences(filter) {
+  try{
+    const queryFilePath = getSparqlFilePath('cell-type-term-occurences.rq');
     const results = executeFilteredQuery(queryFilePath, filter);
     return results;
   }
