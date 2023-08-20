@@ -14,6 +14,7 @@ const FILTER_DEFAULTS = {
   spatialSearches: []
 };
 
+
 function clamp(value, min, max) {
   if (value < min) {
     return min;
