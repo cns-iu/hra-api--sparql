@@ -1,52 +1,8 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { selectRemoteObjects, selectRemoteObjectsForOntology } from './sparql.js';
-
+import { filterSparqlQuery } from './filter-sparql-query.js';
 const sparqlEndpoint = 'https://lod.humanatlas.io/sparql';
 
-export function filterSparqlQuery(sparqlQuery, filter = {}) {
-  const { ontologyTerms, cellTypeTerms, minAge, maxAge, minBMI, maxBMI, sex, technology, tmc} = filter;
-  let sparqlFilter = '';
-  if (sex) {
-    sparqlFilter += `
-      FILTER(?sex = "${sex}")
-    `;
-  }
-  if (minAge && maxAge){
-    sparqlFilter += `
-      FILTER (?age > ${minAge} && ?age < ${maxAge})
-    `;
-  }
-  if (minBMI && maxBMI){
-    sparqlFilter += `
-      FILTER (?bmi > ${minBMI} && ?bmi < ${maxBMI})
-    `;
-  }
-  if (ontologyTerms?.length > 0) {
-    const terms = ontologyTerms.map(s => `<${s}>`).join(' ');    
-    sparqlFilter += `
-      FILTER(?annotation IN (${terms}))
-    `;
-  }
-  if (cellTypeTerms?.length > 0) {
-    const terms = cellTypeTerms.map(s => `<${s}>`).join(' ');    
-    sparqlFilter += `
-      FILTER(?cell_type IN (${terms}))
-    `;
-  }
-  if (tmc?.length > 0) {
-    const providers = tmc.map(s => `"${s}"`).join(',');   
-    sparqlFilter += `
-      FILTER(?tmc IN (${providers}))
-    `;
-  }
-  if (technology?.length > 0) {
-    const technologies = technology.map(s => `"${s}"`).join(',');   
-    sparqlFilter += `
-      FILTER(?technology IN (${technologies}))
-    `;
-  }
-  return sparqlQuery.replace('#{{FILTER}}', sparqlFilter);
-}
 
 async function executeFilteredQuery(sparqlFile, filter) {
   const sparqlQueryTemplate = readFileSync(sparqlFile).toString();

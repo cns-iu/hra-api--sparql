@@ -8,8 +8,10 @@ CONSTRUCT {
                rdfs:label ?donorLabel ;
                ccf:description ?donorDescription ;
                ccf:url ?link .
+  ?sample rdf:type ccf:Sample .
   ?sample ccf:description ?description;
     	  rdfs:label ?label;
+        ccf:comes_from ?tissueDonor ;
         ccf:section_count ?sectionCount;
         ccf:section_size ?sectionSize;
         ccf:section_size_unit ?sectionUnit ;

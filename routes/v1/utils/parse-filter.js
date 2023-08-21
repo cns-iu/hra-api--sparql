@@ -2,11 +2,11 @@
 import ParsedQs from 'qs';
 
 const FILTER_DEFAULTS = {
-  sex: 'Both',
-  minAge: 1,
-  maxAge: 110,
-  minBMI: 13,
-  maxBMI: 83,
+  sex: 'both',
+  minAge: undefined,
+  maxAge: undefined,
+  minBMI: undefined,
+  maxBMI: undefined,
   tmc: [],
   technology: [],
   ontologyTerms: [],
