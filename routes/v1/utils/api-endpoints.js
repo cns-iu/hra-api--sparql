@@ -80,11 +80,22 @@ export async function getCellTypeTermOccurences(filter) {
   }
 
 }
+export async function getReferenceOrgans(filter) {
+  try {
+    const queryFilePath = getSparqlFilePath('reference-organ.rq');
+    const jsonFrame = getSparqlFilePath('jsonld-frames/reference-frame.jsonld');
+    const results = executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
+    return results;
+  }
+  catch (error) {
+    console.error('Error executing SPARQL query:', error.message);
+  }
 
+}
 export async function getTissueBlocks(filter) {
   try {
     const queryFilePath = getSparqlFilePath('tissue-block.rq');
-    const jsonFrame = getSparqlFilePath('test-frame.jsonld');
+    const jsonFrame = getSparqlFilePath('jsonld-frames/test-frame.jsonld');
     const results = executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
     return results;
   }

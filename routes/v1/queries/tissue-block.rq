@@ -66,6 +66,7 @@ WHERE {
   }
 
   FILTER (?sampleType = "Tissue Block")
-  #FILTER (?sectionType = "Tissue Section")
   FILTER (?donorType = ccf:donor)
+    #{{FILTER}}
+
 }

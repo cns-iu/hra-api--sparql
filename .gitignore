@@ -128,3 +128,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+#Frame Testing
+./exp-reference-organ
+./tissue-block-frame-test
