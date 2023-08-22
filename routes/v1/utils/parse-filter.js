@@ -2,7 +2,7 @@
 import ParsedQs from 'qs';
 
 const FILTER_DEFAULTS = {
-  sex: 'both',
+  sex: undefined,
   minAge: undefined,
   maxAge: undefined,
   minBMI: undefined,

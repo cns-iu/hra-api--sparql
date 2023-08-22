@@ -28,23 +28,6 @@ export async function selectRemoteObjects(query, sparqlEndpoint) {
     });
   });
 }
-export async function selectRemoteObjectsForOntology(query, sparqlEndpoint) {
-  const fetcher = new SparqlEndpointFetcher({});
-  const stream = await fetcher.fetchBindings(sparqlEndpoint, query);
-  return new Promise((resolve, reject) => {
-    const results = [];
-    stream.on('data', (bindings) => {
-      const result = Object.keys(bindings).reduce(
-        (acc, key) => ((acc[key] = bindings[key]?.value), acc),
-        {}
-      );
-      results.push(result);
-    });
-    stream.on('end', () => {
-      resolve(results);
-    });
-  });
-}
 
 /**
  * Generator that constructs a JSON-LD object based on a SPARQL CONSTRUCT query

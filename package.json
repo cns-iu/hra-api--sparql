@@ -14,6 +14,7 @@
     "fetch-sparql-endpoint": "^3.3.3",
     "http-errors": "~1.6.3",
     "jade": "^0.29.0",
+    "jsonld": "^8.2.0",
     "morgan": "~1.9.1",
     "node-fetch": "^3.3.2",
     "papaparse": "^5.4.1"

@@ -2,7 +2,7 @@
 export function filterSparqlQuery(sparqlQuery, filter = {}) {
     const { ontologyTerms, cellTypeTerms, minAge, maxAge, minBMI, maxBMI, sex, technology, tmc} = filter;
     let sparqlFilter = '';
-    if (sex) {
+    if (sex != undefined) {
       sparqlFilter += `
         FILTER(?sex = "${sex}")
       `;
