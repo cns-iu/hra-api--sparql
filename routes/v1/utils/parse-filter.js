@@ -14,16 +14,6 @@ const FILTER_DEFAULTS = {
   spatialSearches: []
 };
 
-
-function clamp(value, min, max) {
-  if (value < min) {
-    return min;
-  } else if (value > max) {
-    return max;
-  }
-  return value;
-}
-
 function setIfDefined(obj, prop, value) {
   if (value !== undefined) {
     obj[prop] = value;
@@ -34,33 +24,6 @@ function parseSex(value) {
   const values = ['Both', 'Female', 'Male'];
   value = typeof value === 'string' ? value.toLowerCase() : value;
   return values.find(v => v.toLowerCase() === value);
-}
-
-function parseRange(value, min, max) {
-  if (typeof value === 'string') {
-    value = value.includes(',') ? value.split(',') : [value, value];
-  }
-
-  if (Array.isArray(value)) {
-    let low = Number(value[0] || 'NaN');
-    let high = Number(value[1] || 'NaN');
-
-    if (isNaN(low) && isNaN(high)) {
-      return undefined;
-    }
-
-    low = isNaN(low) ? min : low;
-    high = isNaN(high) ? max : high;
-    if (low > high) {
-      [low, high] = [high, low];
-    }
-
-    low = clamp(low, min, max);
-    high = clamp(high, min, max);
-    return [low, high];
-  }
-
-  return undefined;
 }
 
 function parseAgeBMI(value) {
@@ -163,10 +126,7 @@ function processParameter(result, key, value) {
  * @param {ParsedQs} query the SPARQL query as a string
  */
 export function queryParametersToFilter(query) {
-  /*
-  const result = { ...FILTER_DEFAULTS };
-  Object.entries(query).forEach(([key, value]) => processParameter(result, key, value));
-  return result;*/
+
 
   const result = { ...FILTER_DEFAULTS };
 

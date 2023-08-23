@@ -104,5 +104,15 @@ export async function getTissueBlocks(filter) {
   }
 
 }
+export async function getOntologyTreeModel(filter) {
+  try {
+    const queryFilePath = getSparqlFilePath('ontology-tree-node.rq');
+    const jsonFrame = getSparqlFilePath('jsonld-frames/ontology-frame.jsonld');
+    const results = executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
+    return results;
+  }
+  catch (error) {
+    console.error('Error executing SPARQL query:', error.message);
+  }
 
-//getOntologyTermOccurences(10,100,0,40,"Female")
+}
