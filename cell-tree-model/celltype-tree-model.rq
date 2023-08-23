@@ -1,0 +1,22 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX ccf: <http://purl.org/ccf/>
+PREFIX cell: <http://purl.obolibrary.org/obo/CL_0000000>
+
+CONSTRUCT {
+    cell: rdfs:label ?cellLabel .
+    cell: rdf:type ccf:OntologyTreeNode .
+    cell: ccf:is_root_for "AS" .
+
+    ?child rdf:type ccf:OntologyTreeNode .
+    ?child ccf:parent ?parent .
+    ?child rdfs:label ?label .
+    ?child ccf:synonymLabels ?synonymLabel .
+}
+WHERE {
+    cell: ^rdfs:subClassOf* ?child .
+    cell: rdfs:label ?cellLabel .
+    ?child rdfs:subClassOf ?parent .
+    ?child rdfs:label ?label .
+    ?child ccf:ccf_pref_label ?synonymLabel .
+}

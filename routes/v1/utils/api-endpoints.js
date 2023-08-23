@@ -106,8 +106,20 @@ export async function getTissueBlocks(filter) {
 }
 export async function getOntologyTreeModel(filter) {
   try {
-    const queryFilePath = getSparqlFilePath('ontology-tree-node.rq');
+    const queryFilePath = getSparqlFilePath('ontology-tree-model.rq');
     const jsonFrame = getSparqlFilePath('jsonld-frames/ontology-frame.jsonld');
+    const results = executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
+    return results;
+  }
+  catch (error) {
+    console.error('Error executing SPARQL query:', error.message);
+  }
+
+}
+export async function getCellTypeTreeModel(filter) {
+  try {
+    const queryFilePath = getSparqlFilePath('celltype-tree-model.rq');
+    const jsonFrame = getSparqlFilePath('jsonld-frames/celltype-frame.jsonld');
     const results = executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
     return results;
   }
