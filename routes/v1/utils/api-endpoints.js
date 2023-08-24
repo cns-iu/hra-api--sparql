@@ -82,8 +82,8 @@ export async function getCellTypeTermOccurences(filter) {
 }
 export async function getReferenceOrgans(filter) {
   try {
-    const queryFilePath = getSparqlFilePath('reference-organ.rq');
-    const jsonFrame = getSparqlFilePath('jsonld-frames/reference-frame.jsonld');
+    const queryFilePath = getSparqlFilePath('reference-organs.rq');
+    const jsonFrame = getSparqlFilePath('jsonld-frames/reference-organs.jsonld');
     const results = executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
     return results;
   }
@@ -94,8 +94,8 @@ export async function getReferenceOrgans(filter) {
 }
 export async function getTissueBlocks(filter) {
   try {
-    const queryFilePath = getSparqlFilePath('tissue-block.rq');
-    const jsonFrame = getSparqlFilePath('jsonld-frames/test-frame.jsonld');
+    const queryFilePath = getSparqlFilePath('tissue-blocks.rq');
+    const jsonFrame = getSparqlFilePath('jsonld-frames/tissue-blocks.jsonld');
     const results = executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
     return results;
   }

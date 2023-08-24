@@ -15,9 +15,8 @@ CONSTRUCT {
         ccf:y_dimension ?y_dimension;
         ccf:z_dimension ?z_dimension;
         ccf:dimension_unit ?dimension_units ;
-        ccf:organ_side ?organ_side;
         rdfs:label ?label;
-        ccf:organ_owner_sex ?sex;
+        ccf:sex ?sex;
         ccf:rui_rank ?rui_rank ;
         ccf:has_object_reference ?object.
     ?object rdf:type ccf:spatial_object_reference ;
@@ -45,7 +44,7 @@ WHERE
         ccf:dimension_unit ?dimension_units ;
         ccf:organ_side ?organ_side;
         rdfs:label ?label;
-        ccf:sexS ?sex;
+        ccf:organ_owner_sex ?sex;
         ccf:rui_rank ?rui_rank ;
         ccf:has_object_reference ?object.
     ?object rdf:type ccf:spatial_object_reference ;

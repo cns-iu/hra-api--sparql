@@ -4,13 +4,6 @@ PREFIX ccf: <http://purl.org/ccf/>
 
 SELECT DISTINCT ?annotation (COUNT(?annotation) as ?count)
 WHERE {
-  #{{top_filter}}
-  #{
-    #VALUES (?annotation) {
-      #(<http://purl.obolibrary.org/obo/UBERON_0000955>)
-    #}
-  #}
-
 
   ?sample ccf:has_registration_location ?rui_location ;
           ccf:generates_dataset ?allTech ;

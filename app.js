@@ -13,10 +13,8 @@ app.set('query parser', function (str) {
   return qs.parse(str, { allowDots: true });
 });
 
-app.use('/v1', v1Routes);
 app.use('/', browserRoute);
-app.get('/foo', (req, res) => res.send('bar'));
-
+app.use('/v1', v1Routes);
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -26,7 +24,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send('error');
 });
 
 // Start the server

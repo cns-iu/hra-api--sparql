@@ -18,7 +18,6 @@ CONSTRUCT {
         ccf:section_count ?sectionCount;
         ccf:section_size ?sectionSize;
         ccf:section_size_unit ?sectionUnit ;
-        #ccf:section_number ?sectionNumber ;
     	  ccf:url ?link .
   
   ?dataset rdf:type ccf:Dataset ;
@@ -33,18 +32,18 @@ CONSTRUCT {
     	  ccf:url ?link .
   ?sample ccf:has_registration_location ?spatialEntityId .
 }
+FROM <https://purl.org/ccf/releases/2.2.1/ccf.owl> # Ontology / CCF.OWL
+FROM <https://ccf-api.hubmapconsortium.org/v1/hubmap/rui_locations.jsonld> # Experimental data / data sets / rui locations
 WHERE {
   ?sample rdf:type ccf:Sample .
   ?sample ccf:sample_type ?sampleType ; 
     	  ccf:has_registration_location ?spatialEntityId;
         ccf:generates_dataset ?dataset ;
   		  ccf:comes_from ?tissueDonor ;
-        ccf:subdivided_into_sections ?sections;
         rdfs:comment ?description;
         ccf:section_count ?sectionCount;
         ccf:section_size ?sectionSize;
         ccf:section_size_unit ?sectionUnit ;
-        #ccf:section_number ?sectionNumber ;
     	 rdfs:label ?label .
   ?tissueDonor rdf:type ?donorType ;
                ccf:tissue_provider_name ?tmc ;
@@ -58,7 +57,8 @@ WHERE {
            rdfs:label ?datasetLabel .
 
   OPTIONAL {
-    ?sections ccf:sample_type "Tissue Section" ;
+    ?sections ccf:subdivided_into_sections ?sample;
+        ccf:sample_type "Tissue Section" ;
   		  ccf:section_number ?sectionNumber ;
     	   rdfs:label ?sectionLabel ;
     	   rdfs:comment ?sectionDescription ;
@@ -66,7 +66,7 @@ WHERE {
   }
 
   FILTER (?sampleType = "Tissue Block")
-  FILTER (?donorType = ccf:donor)
+  FILTER (?donorType = ccf:Donor)
     #{{FILTER}}
 
 }
