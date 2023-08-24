@@ -6,17 +6,21 @@ PREFIX cell: <http://purl.obolibrary.org/obo/CL_0000000>
 CONSTRUCT {
     cell: rdfs:label ?cellLabel .
     cell: rdf:type ccf:OntologyTreeNode .
-    cell: ccf:is_root_for "AS" .
+    cell: ccf:is_root_for "CT" .
 
     ?child rdf:type ccf:OntologyTreeNode .
     ?child ccf:parent ?parent .
     ?child rdfs:label ?label .
     ?child ccf:synonymLabels ?synonymLabel .
 }
+FROM <https://purl.org/ccf/releases/2.2.1/ccf.owl> # Ontology / CCF.OWL
 WHERE {
     cell: ^rdfs:subClassOf* ?child .
     cell: rdfs:label ?cellLabel .
     ?child rdfs:subClassOf ?parent .
     ?child rdfs:label ?label .
     ?child ccf:ccf_pref_label ?synonymLabel .
+
+    # Take care of some edge cases. No blank nodes, and ignore ccf:cell_type
+    FILTER(!isBLANK(?child) && !isBLANK(?parent) && ?parent != ccf:cell_type)
 }

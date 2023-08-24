@@ -128,3 +128,15 @@ export async function getCellTypeTreeModel(filter) {
   }
 
 }
+export async function getRuiLocation(filter) {
+  try {
+    const queryFilePath = getSparqlFilePath('rui-location.rq');
+    const jsonFrame = getSparqlFilePath('jsonld-frames/rui-location-frame.jsonld');
+    const results = executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
+    return results;
+  }
+  catch (error) {
+    console.error('Error executing SPARQL query:', error.message);
+  }
+
+}

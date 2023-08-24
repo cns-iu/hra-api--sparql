@@ -13,10 +13,13 @@ CONSTRUCT {
     ?child rdfs:label ?label .
     ?child ccf:synonymLabels ?synonymLabel .
 }
+FROM <https://purl.org/ccf/releases/2.2.1/ccf.owl> # Ontology / CCF.OWL
 WHERE {
     cell: ^rdfs:subClassOf* ?child .
     cell: rdfs:label ?cellLabel .
     ?child rdfs:subClassOf ?parent .
     ?child rdfs:label ?label .
     ?child ccf:ccf_pref_label ?synonymLabel .
+
+    FILTER(!isBLANK(?child) && !isBLANK(?parent))
 }

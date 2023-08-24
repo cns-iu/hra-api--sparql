@@ -1,0 +1,101 @@
+{
+    "@context": [
+        "https://hubmapconsortium.github.io/ccf-ontology/ccf-context.jsonld",
+        {
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+            "ccf": "http://purl.org/ccf/",
+            "ccf1": "http://purl.org/ccf/latest/ccf.owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "dcterms": "http://purl.org/dc/terms/",
+            "age": {
+                "@id": "ccf:age",
+                "@type": "xsd:integer"
+            },
+            "bmi": {
+                "@id": "ccf:bmi",
+                "@type": "xsd:integer"
+            },
+            "x_dimension": {
+                "@id": "ccf:x_dimension",
+                "@type": "xsd:integer"
+            },
+            "y_dimension": {
+                "@id": "ccf:y_dimension",
+                "@type": "xsd:integer"
+            },
+            "z_dimension": {
+                "@id": "ccf:z_dimension",
+                "@type": "xsd:integer"
+            },
+            "x_scaling": {
+                "@id": "ccf1:has_x_scaling",
+                "@type": "xsd:float"
+            },
+            "y_scaling": {
+                "@id": "ccf1:has_y_scaling",
+                "@type": "xsd:float"
+            },
+            "z_scaling": {
+                "@id": "ccf1:has_z_scaling",
+                "@type": "xsd:float"
+            },
+            "x_rotation": {
+                "@id": "ccf1:has_x_rotation",
+                "@type": "xsd:float"
+            },
+            "y_rotation": {
+                "@id": "ccf1:has_y_rotation",
+                "@type": "xsd:float"
+            },
+            "z_rotation": {
+                "@id": "ccf1:has_z_rotation",
+                "@type": "xsd:float"
+            },
+            "x_translation": {
+                "@id": "ccf1:has_x_translation",
+                "@type": "xsd:float"
+            },
+            "y_translation": {
+                "@id": "ccf1:has_y_translation",
+                "@type": "xsd:float"
+            },
+            "z_translation": {
+                "@id": "ccf1:has_z_translation",
+                "@type": "xsd:float"
+            },
+            "placement_target": {
+                "@id": "ccf1:has_placement_target",
+                "@type": "@id"
+            },
+            "placement_date": {
+                "@id": "ccf1:has_placement_date",
+                "@type": "xsd:date"
+            },     
+            "samples": {
+                "@reverse": "ccf:comes_from"
+            },
+            "datasets": "ccf:generates_dataset",
+            "rui_location": "ccf:has_registration_location",
+            "ccf:annotations": {
+                "@type": "@id"
+            }
+        }
+    ],
+    "@type": "ccf:donor",
+    "samples": {
+        "@type": "ccf:sample",
+        "rui_location": {
+            "@type": "ccf:SpatialEntity",
+            "placement": {
+                "@type": "ccf:SpatialPlacement"
+            }
+        },
+        "section":{
+            "@type": "ccf:sample",
+            "datasets":{
+                "@type":"ccf:dataset"
+            }
+        }
+    }
+}

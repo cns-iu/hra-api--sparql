@@ -1,16 +1,20 @@
 import express from 'express';
 import qs from 'qs';
 import v1Routes from './routes/v1/index.js';
+import browserRoute from './routes/browser.js';
+
 
 const app = express();
 
 app.use(express.json());
+app.set('json spaces', 2);
 
 app.set('query parser', function (str) {
   return qs.parse(str, { allowDots: true });
 });
 
 app.use('/v1', v1Routes);
+app.use('/', browserRoute);
 app.get('/foo', (req, res) => res.send('bar'));
 
 
