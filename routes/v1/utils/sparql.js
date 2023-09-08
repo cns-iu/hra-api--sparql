@@ -9,19 +9,26 @@ import jsonld from 'jsonld';
  * @returns array of values
  */
 export async function selectRemoteObjects(query, sparqlEndpoint) {
-  console.log('query',query)
   const fetcher = new SparqlEndpointFetcher({});
   const stream = await fetcher.fetchBindings(sparqlEndpoint, query);
   return new Promise((resolve, reject) => {
     const values = [];
     stream.on('data', (bindings) => {
+      const keys = Object.keys(bindings);
       // Extract the values from the bindings object
-      for (const key in bindings) {
-        const value = bindings[key]?.value;
-        if (value !== undefined) {
-          values.push(value);
+      if(keys.length < 2){
+        for (const key in bindings) {
+          const value = bindings[key]?.value;
+          if (value !== undefined) {
+            values.push(value);
+          }
         }
       }
+      else
+      {
+        const value = Object.keys(bindings).reduce((acc, key) => ((acc[key] = bindings[key]?.value),acc),{});
+        values.push(value);
+     } 
     });
     stream.on('end', () => {
       resolve(values);

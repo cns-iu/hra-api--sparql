@@ -9,7 +9,6 @@ export function forwardSparqlQuery(method) {
       const filter = queryParametersToFilter(query);
       const result = await method(filter);
       res.json(result);
-      console.log(result)
     } catch (error) {
       // Handle errors here
       console.error('Error:', error.message);

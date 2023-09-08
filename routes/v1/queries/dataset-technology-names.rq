@@ -1,8 +1,9 @@
 PREFIX ccf: <http://purl.org/ccf/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT DISTINCT ?allTech
+SELECT DISTINCT ?technology
 FROM <https://ccf-api.hubmapconsortium.org/v1/hubmap/rui_locations.jsonld>
 WHERE {
-?subject ccf:technology ?allTech .
+    ?sample ccf:generates_dataset ?allTech .
+    ?allTech ccf:technology ?technology .
 }

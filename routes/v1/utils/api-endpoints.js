@@ -72,8 +72,11 @@ export async function getOntologyTermOccurences(filter) {
 export async function getCellTypeTermOccurences(filter) {
   try {
     const queryFilePath = getSparqlFilePath('cell-type-term-occurences.rq');
-    const results = executeFilteredQuery(queryFilePath, filter);
-    return results;
+    const jsonFrame = getSparqlFilePath('jsonld-frames/cell-type-term-occurences.jsonld');
+    const results = await executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
+
+    // TODO: See if we can do this in the frame itself
+    return results['@graph'].reduce((acc, row) => (acc[row['@id']] = parseInt(row['count']), acc), {});
   }
   catch (error) {
     console.error('Error executing SPARQL query:', error.message);

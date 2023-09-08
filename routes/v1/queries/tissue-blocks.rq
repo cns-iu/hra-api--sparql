@@ -46,10 +46,13 @@ WHERE {
         ccf:section_size_unit ?sectionUnit ;
     	 rdfs:label ?label .
   ?tissueDonor rdf:type ?donorType ;
-               ccf:tissue_provider_name ?tmc ;
-               rdfs:label ?donorLabel;
-               rdfs:comment ?donorDescription;
-               ccf:url ?link .
+              ccf:tissue_provider_name ?tmc ;
+              rdfs:label ?donorLabel;
+              rdfs:comment ?donorDescription;
+              ccf:url ?link ;
+              ccf:sex ?sex;
+              ccf:age ?age;
+              ccf:bmi ?bmi.
 
   ?dataset ccf:technology ?technology ;
            ccf:thumbnail ?thumbnail ;

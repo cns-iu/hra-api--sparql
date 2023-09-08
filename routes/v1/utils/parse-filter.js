@@ -1,4 +1,3 @@
-//const { Filter, SpatialSearch } = require('ccf-database');
 import ParsedQs from 'qs';
 
 const FILTER_DEFAULTS = {
@@ -8,11 +7,21 @@ const FILTER_DEFAULTS = {
   minBMI: undefined,
   maxBMI: undefined,
   tmc: [],
-  technology: [],
+  technologies: [],
   ontologyTerms: [],
   cellTypeTerms: [],
-  spatialSearches: []
+  spatialSearches: [],
 };
+
+function clamp(value, min, max) {
+  if (value < min) {
+    return min;
+  } else if (value > max) {
+    return max;
+  }
+
+  return value;
+}
 
 function setIfDefined(obj, prop, value) {
   if (value !== undefined) {
@@ -21,17 +30,44 @@ function setIfDefined(obj, prop, value) {
 }
 
 function parseSex(value) {
-  const values = ['Both', 'Female', 'Male'];
+  const values = ['Female', 'Male'];
   value = typeof value === 'string' ? value.toLowerCase() : value;
   return values.find(v => v.toLowerCase() === value);
 }
 
-function parseAgeBMI(value) {
-  if (!value ) {
+function parseRange(value, min, max) {
+  if (typeof value === 'string') {
+    value = value.includes(',') ? value.split(',') : [value, value];
+  }
+
+  if (Array.isArray(value)) {
+    let low = Number(value[0] || 'NaN');
+    let high = Number(value[1] || 'NaN');
+
+    if (isNaN(low) && isNaN(high)) {
+      return undefined;
+    }
+
+    low = isNaN(low) ? min : low;
+    high = isNaN(high) ? max : high;
+    if (low > high) {
+      [low, high] = [high, low];
+    }
+
+    low = clamp(low, min, max);
+    high = clamp(high, min, max);
+    return [low, high];
+  }
+
+  return undefined;
+}
+
+function parseMinMaxRange(value, min, max) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
     return undefined;
   }
 
-  return parseInt(value);
+  return parseRange([value?.['min'], value?.['max']], min, max);
 }
 
 function parseArray(value) {
@@ -75,25 +111,36 @@ function parseSpatial(value) {
 }
 
 function processParameter(result, key, value) {
+  let minAge, maxAge, minBMI, maxBMI;
   switch (key.toLowerCase()) {
     case 'sex':
       setIfDefined(result, 'sex', parseSex(value));
       break;
 
-    case 'age.min':
-      setIfDefined(result, 'minAge', parseAgeBMI(value));
+    case 'agerange':
+    case 'age-range':
+      [minAge, maxAge] = parseRange(value,1,110)
+      setIfDefined(result, 'minAge', minAge);
+      setIfDefined(result, 'maxAge', maxAge);
       break;
 
-    case 'age.max':
-      setIfDefined(result, 'maxAge', parseAgeBMI(value));
+    case 'age':
+      [minAge, maxAge] = parseRange(value,1,110)
+      setIfDefined(result, 'minAge', minAge);
+      setIfDefined(result, 'maxAge', maxAge);
       break;
 
-    case 'bmi.min':
-      setIfDefined(result, 'minBMI', parseAgeBMI(value));
+    case 'bmirange':
+    case 'bmi-range':
+      [minBMI, maxBMI] = parseRange(value, 13, 83)
+      setIfDefined(result, 'minBMI', minBMI);
+      setIfDefined(result, 'maxBMI', maxBMI);
       break;
 
-    case 'bmi.max':
-      setIfDefined(result, 'maxBMI', parseAgeBMI(value));
+    case 'bmi':
+      [minBMI, maxBMI] = parseMinMaxRange(value, 13, 83)
+      setIfDefined(result, 'minBMI', minBMI);
+      setIfDefined(result, 'maxBMI', maxBMI);
       break;
 
     case 'spatial':
@@ -106,7 +153,7 @@ function processParameter(result, key, value) {
       break;
 
     case 'technologies':
-      setIfDefined(result, 'technology', parseArray(value));
+      setIfDefined(result, 'technologies', parseArray(value));
       break;
 
     case 'ontologyterms':
@@ -120,14 +167,8 @@ function processParameter(result, key, value) {
       break;
   }
 }
-/**
- * Run a SPARQL query and return results as an array of values
- *
- * @param {ParsedQs} query the SPARQL query as a string
- */
+
 export function queryParametersToFilter(query) {
-
-
   const result = { ...FILTER_DEFAULTS };
 
   for (const key in query) {
@@ -136,4 +177,3 @@ export function queryParametersToFilter(query) {
 
   return result;
 }
-
