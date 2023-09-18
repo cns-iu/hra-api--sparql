@@ -18,10 +18,10 @@ app.use("/v1", v1Routes);
 
 // Define the proxy middleware for SPARQL requests
 const proxyOptions = {
-  target: "https://lod.humanatlas.io/sparql",
+  target: "https://lod.humanatlas.io",
   changeOrigin: true,
   pathRewrite: {
-    "^/v1/sparql": "",
+    "^/v1/sparql": "/sparql",
   },
 };
 
