@@ -33,7 +33,22 @@ async function executeFilteredConstructQuery(sparqlFile, filter, jsonFrame) {
 function getSparqlFilePath(filename) {
   return `routes/v1/queries/${filename}`;
 }
-
+export async function getDbStatus(filter) {
+  try {
+    const results = {
+      status: "Ready",
+      message: "Database successfully loaded",
+      checkback: 3600000,
+      loadTime: 22594,
+      timestamp: new Date().toISOString()
+    };
+  
+    return results;
+  }
+  catch (error) {
+    console.error('Error executing SPARQL query:', error.message);
+  }
+}
 
 export async function getDatasetTechnologyNames(filter) {
   try {
@@ -60,8 +75,9 @@ export async function getTissueProviderNames(filter) {
 export async function getOntologyTermOccurences(filter) {
   try {
     const queryFilePath = getSparqlFilePath('ontology-term-occurences.rq');
-    const results = executeFilteredQuery(queryFilePath, filter);
-    return results;
+    const jsonFrame = getSparqlFilePath('jsonld-frames/ontology-term-occurences.jsonld');
+    const results = await executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
+    return results['@graph'].reduce((acc, row) => (acc[row['@id']] = parseInt(row['count']), acc), {});;
   }
   catch (error) {
     console.error('Error executing SPARQL query:', error.message);
@@ -75,7 +91,6 @@ export async function getCellTypeTermOccurences(filter) {
     const jsonFrame = getSparqlFilePath('jsonld-frames/cell-type-term-occurences.jsonld');
     const results = await executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
 
-    // TODO: See if we can do this in the frame itself
     return results['@graph'].reduce((acc, row) => (acc[row['@id']] = parseInt(row['count']), acc), {});
   }
   catch (error) {
@@ -134,7 +149,7 @@ export async function getCellTypeTreeModel(filter) {
 export async function getRuiLocation(filter) {
   try {
     const queryFilePath = getSparqlFilePath('rui-location.rq');
-    const jsonFrame = getSparqlFilePath('jsonld-frames/rui-location-frame.jsonld');
+    const jsonFrame = getSparqlFilePath('jsonld-frames/rui-location.jsonld');
     const results = executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
     return results;
   }
@@ -142,4 +157,15 @@ export async function getRuiLocation(filter) {
     console.error('Error executing SPARQL query:', error.message);
   }
 
+}
+
+export async function getAggregateResults(filter) {
+  try {
+    const queryFilePath = getSparqlFilePath('aggregate-results.rq');
+    const results = executeFilteredQuery(queryFilePath, filter);
+    return results;
+  }
+  catch (error) {
+    console.error('Error executing SPARQL query:', error.message);
+  }
 }
