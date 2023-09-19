@@ -21,12 +21,12 @@ const proxyOptions = {
   target: "https://lod.humanatlas.io/sparql",
   changeOrigin: true,
   pathRewrite: {
-    "^/v1/sparql-post": "",
+    "^/v1/sparql": "",
   },
 };
 
-const sparqlProxy = createProxyMiddleware("/v1/sparql-post", proxyOptions);
-app.use("/v1/sparql-post", sparqlProxy);
+const sparqlProxy = createProxyMiddleware("/v1/sparql", proxyOptions);
+app.use("/v1/sparql", sparqlProxy);
 
 // error handler
 app.use(function (err, req, res, next) {
