@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import { resolve } from 'path';
+import { Router } from "express";
+import { resolve } from "path";
 
 export const browserRoute = (req, res, next) => {
   res.send(`<!doctype html>
@@ -19,13 +19,12 @@ export const browserRoute = (req, res, next) => {
 };
 
 export const openApiRoute = (req, res, next) => {
-  const apiFile = resolve('ccf-api-spec.yaml');
+  const apiFile = resolve("ccf-api-spec.yaml");
   res.sendFile(apiFile);
 };
 
 const routes = Router()
-  .get('/', browserRoute)
-  .get('/ccf-api-spec.yaml', openApiRoute);
-
+  .get("/", browserRoute)
+  .get("/ccf-api-spec.yaml", openApiRoute);
 
 export default routes;

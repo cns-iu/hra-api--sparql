@@ -44,7 +44,7 @@ paths:
         - $ref: "#/components/parameters/Token"
         - $ref: "#/components/parameters/Format"
       responses:
-        "200": { $ref: "#/components/responses/SparqlResponse"}
+        "200": { $ref: "#/components/responses/SparqlResponse" }
 
     post:
       summary: Run a SPARQL query (POST)
@@ -54,7 +54,7 @@ paths:
         - $ref: "#/components/parameters/Token"
         - $ref: "#/components/parameters/Format"
       responses:
-        "200": { $ref: "#/components/responses/SparqlResponse"}
+        "200": { $ref: "#/components/responses/SparqlResponse" }
 
   /aggregate-results:
     get:
@@ -92,8 +92,8 @@ paths:
       description: This option is only enabled if HUBMAP_ROUTES=true in the environment
       operationId: hubmap-rui-locations
       parameters:
-        - $ref: '#/components/parameters/Cache'
-        - $ref: '#/components/parameters/Token'
+        - $ref: "#/components/parameters/Cache"
+        - $ref: "#/components/parameters/Token"
       responses:
         "200":
           description: Successful operation
@@ -103,7 +103,6 @@ paths:
                 type: object
         "404":
           description: Not found due to option being disabled
-
 
   /ontology-term-occurences:
     get:
@@ -180,8 +179,8 @@ paths:
       summary: Get all reference organs
       operationId: reference-organs
       parameters:
-        - $ref: '#/components/parameters/Cache'
-        - $ref: '#/components/parameters/Token'
+        - $ref: "#/components/parameters/Cache"
+        - $ref: "#/components/parameters/Token"
       responses:
         "200": { $ref: "#/components/responses/SpatialEntities" }
 
@@ -313,11 +312,22 @@ components:
       required: false
       schema:
         type: array
-        items:
-         { $ref: "#/components/schemas/SpatialSearch" }
+        items: { $ref: "#/components/schemas/SpatialSearch" }
         example:
-          - { x: 10, y: 10, z: 10, radius: 100, target: 'http://purl.org/ccf/latest/ccf.owl#VHMale' }
-          - { x: 11, y: 11, z: 11, radius: 101, target: 'http://purl.org/ccf/latest/ccf.owl#VHFemale' }
+          - {
+              x: 10,
+              y: 10,
+              z: 10,
+              radius: 100,
+              target: "http://purl.org/ccf/latest/ccf.owl#VHMale",
+            }
+          - {
+              x: 11,
+              y: 11,
+              z: 11,
+              radius: 101,
+              target: "http://purl.org/ccf/latest/ccf.owl#VHFemale",
+            }
 
     Cache:
       name: cache
@@ -416,23 +426,24 @@ components:
       required: false
       schema:
         type: string
-        enum: [
-          'application/json',
-          'application/ld+json',
-          'application/n-quads',
-          'application/n-triples',
-          'application/sparql-results+json',
-          'application/sparql-results+xml',
-          'application/trig',
-          'simple',
-          'stats',
-          'table',
-          'text/csv',
-          'text/n3',
-          'text/tab-separated-values',
-          'text/turtle',
-          'tree'
-        ]
+        enum:
+          [
+            "application/json",
+            "application/ld+json",
+            "application/n-quads",
+            "application/n-triples",
+            "application/sparql-results+json",
+            "application/sparql-results+xml",
+            "application/trig",
+            "simple",
+            "stats",
+            "table",
+            "text/csv",
+            "text/n3",
+            "text/tab-separated-values",
+            "text/turtle",
+            "tree",
+          ]
 
   requestBodies:
     GetSpatialPlacement:
@@ -443,47 +454,50 @@ components:
           schema: { $ref: "#/components/schemas/GetSpatialPlacementRequest" }
           example:
             target_iri: "http://purl.org/ccf/latest/ccf.owl#VHFemale"
-            rui_location: {
-              "@context": "https://hubmapconsortium.github.io/ccf-ontology/ccf-context.jsonld",
-              "@id": "http://purl.org/ccf/1.5/f7130161-ad0a-4801-b5a4-f6297e0f1869",
-              "@type": "SpatialEntity",
-              "creator": "Bruce Herr",
-              "creator_first_name": "Bruce",
-              "creator_last_name": "Herr",
-              "creation_date": "2022-04-27",
-              "ccf_annotations": [
-                "http://purl.obolibrary.org/obo/UBERON_0002015",
-                "http://purl.obolibrary.org/obo/UBERON_0000362",
-                "http://purl.obolibrary.org/obo/UBERON_0004200",
-                "http://purl.obolibrary.org/obo/UBERON_0001225",
-                "http://purl.obolibrary.org/obo/UBERON_0001284",
-                "http://purl.obolibrary.org/obo/UBERON_0002189"
-              ],
-              "x_dimension": 11,
-              "y_dimension": 12,
-              "z_dimension": 13,
-              "dimension_units": "millimeter",
-              "placement": {
+            rui_location:
+              {
                 "@context": "https://hubmapconsortium.github.io/ccf-ontology/ccf-context.jsonld",
-                "@id": "http://purl.org/ccf/1.5/f7130161-ad0a-4801-b5a4-f6297e0f1869_placement",
-                "@type": "SpatialPlacement",
-                "target": "http://purl.org/ccf/latest/ccf.owl#VHFLeftKidneyV1.1",
-                "placement_date": "2022-04-27",
-                "x_scaling": 1,
-                "y_scaling": 1,
-                "z_scaling": 1,
-                "scaling_units": "ratio",
-                "x_rotation": -61,
-                "y_rotation": 50,
-                "z_rotation": -84,
-                "rotation_order": "XYZ",
-                "rotation_units": "degree",
-                "x_translation": 20.149,
-                "y_translation": 109.963,
-                "z_translation": 38.79,
-                "translation_units": "millimeter"
+                "@id": "http://purl.org/ccf/1.5/f7130161-ad0a-4801-b5a4-f6297e0f1869",
+                "@type": "SpatialEntity",
+                "creator": "Bruce Herr",
+                "creator_first_name": "Bruce",
+                "creator_last_name": "Herr",
+                "creation_date": "2022-04-27",
+                "ccf_annotations":
+                  [
+                    "http://purl.obolibrary.org/obo/UBERON_0002015",
+                    "http://purl.obolibrary.org/obo/UBERON_0000362",
+                    "http://purl.obolibrary.org/obo/UBERON_0004200",
+                    "http://purl.obolibrary.org/obo/UBERON_0001225",
+                    "http://purl.obolibrary.org/obo/UBERON_0001284",
+                    "http://purl.obolibrary.org/obo/UBERON_0002189",
+                  ],
+                "x_dimension": 11,
+                "y_dimension": 12,
+                "z_dimension": 13,
+                "dimension_units": "millimeter",
+                "placement":
+                  {
+                    "@context": "https://hubmapconsortium.github.io/ccf-ontology/ccf-context.jsonld",
+                    "@id": "http://purl.org/ccf/1.5/f7130161-ad0a-4801-b5a4-f6297e0f1869_placement",
+                    "@type": "SpatialPlacement",
+                    "target": "http://purl.org/ccf/latest/ccf.owl#VHFLeftKidneyV1.1",
+                    "placement_date": "2022-04-27",
+                    "x_scaling": 1,
+                    "y_scaling": 1,
+                    "z_scaling": 1,
+                    "scaling_units": "ratio",
+                    "x_rotation": -61,
+                    "y_rotation": 50,
+                    "z_rotation": -84,
+                    "rotation_order": "XYZ",
+                    "rotation_units": "degree",
+                    "x_translation": 20.149,
+                    "y_translation": 109.963,
+                    "z_translation": 38.79,
+                    "translation_units": "millimeter",
+                  },
               }
-            }
 
     SparqlQuery:
       description: Request format for a SPARQL query
@@ -591,7 +605,7 @@ components:
       properties:
         status:
           title: Current status of the database
-          enum: [ "Loading", "Ready", "Error" ]
+          enum: ["Loading", "Ready", "Error"]
           x-preprocessor-delete: enum
         checkback:
           title: How long to wait (in milliseconds) before checking status again
@@ -854,7 +868,7 @@ components:
       type: object
       allOf:
         - $ref: "#/components/schemas/JsonLdObject"
-      required: ["@type",]
+      required: ["@type"]
       properties:
         "@type":
           type: string
@@ -902,7 +916,8 @@ components:
         nodes:
           title: All Nodes
           description: A mapping of identifiers to each node object.
-          additionalProperties: { $ref: "#/components/schemas/OntologyTreeNode" }
+          additionalProperties:
+            { $ref: "#/components/schemas/OntologyTreeNode" }
 
     # Spatial data format
     SpatialObjectReference:
