@@ -1,5 +1,3 @@
-import ParsedQs from 'qs';
-
 const FILTER_DEFAULTS = {
   sex: undefined,
   minAge: undefined,

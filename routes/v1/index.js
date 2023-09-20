@@ -1,17 +1,17 @@
 import express from 'express';
 import {
-  getDatasetTechnologyNames,
-  getOntologyTermOccurences,
-  getTissueProviderNames,
-  getCellTypeTermOccurences,
-  getTissueBlocks,
-  getReferenceOrgans,
-  getOntologyTreeModel,
-  getCellTypeTreeModel,
-  getRuiLocation,
   getAggregateResults,
+  getCellTypeTermOccurences,
+  getCellTypeTreeModel,
+  getDatasetTechnologyNames,
   getDbStatus,
   getHuBMAPRuiLocation,
+  getOntologyTermOccurences,
+  getOntologyTreeModel,
+  getReferenceOrgans,
+  getRuiLocation,
+  getTissueBlocks,
+  getTissueProviderNames,
 } from './utils/api-endpoints.js';
 import { forwardSparqlQuery } from './utils/forward-sparql-db.js';
 

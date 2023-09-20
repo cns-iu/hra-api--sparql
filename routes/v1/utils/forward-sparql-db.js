@@ -1,5 +1,3 @@
-import express from 'express';
-import { getDatasetTechnologyNames, getOntologyTermOccurences, getTissueProviderNames } from './api-endpoints.js';
 import { queryParametersToFilter } from './parse-filter.js';
 
 export function forwardSparqlQuery(method) {

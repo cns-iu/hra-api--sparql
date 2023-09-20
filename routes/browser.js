@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { resolve } from 'path';
 
-export const browserRoute = (req, res, next) => {
+export const browserRoute = (_req, res, _next) => {
   res.send(`<!doctype html>
 <html lang="en">
   <head>
