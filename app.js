@@ -2,6 +2,7 @@ import express from 'express';
 import { createProxyMiddleware, fixRequestBody } from 'http-proxy-middleware';
 import qs from 'qs';
 import browserRoute from './routes/browser.js';
+import euiRoute from './routes/eui.js';
 import v1Routes from './routes/v1/index.js';
 
 const app = express();
@@ -14,6 +15,7 @@ app.set('query parser', function (str) {
 });
 
 app.use('/', browserRoute);
+app.use('/', euiRoute);
 app.use('/v1', v1Routes);
 
 // Define the proxy middleware for SPARQL requests
