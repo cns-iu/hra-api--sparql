@@ -1,10 +1,6 @@
-import express from "express";
-import {
-  getDatasetTechnologyNames,
-  getOntologyTermOccurences,
-  getTissueProviderNames,
-} from "./api-endpoints.js";
-import { queryParametersToFilter } from "./parse-filter.js";
+import express from 'express';
+import { getDatasetTechnologyNames, getOntologyTermOccurences, getTissueProviderNames } from './api-endpoints.js';
+import { queryParametersToFilter } from './parse-filter.js';
 
 export function forwardSparqlQuery(method) {
   return async (req, res) => {
@@ -15,8 +11,8 @@ export function forwardSparqlQuery(method) {
       res.json(result);
     } catch (error) {
       // Handle errors here
-      console.error("Error:", error.message);
-      res.status(500).send("Internal Server Error");
+      console.error('Error:', error.message);
+      res.status(500).send('Internal Server Error');
     }
   };
 }

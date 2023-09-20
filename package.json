@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "prettify": "npx prettier --write --print-width 120 --single-quote ."
   },
   "dependencies": {
     "@comunica/query-sparql": "^2.8.3",

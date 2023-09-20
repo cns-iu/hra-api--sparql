@@ -1,5 +1,5 @@
-import { SparqlEndpointFetcher } from "fetch-sparql-endpoint";
-import jsonld from "jsonld";
+import { SparqlEndpointFetcher } from 'fetch-sparql-endpoint';
+import jsonld from 'jsonld';
 
 /**
  * Run a SPARQL query and return results as an array of values
@@ -13,7 +13,7 @@ export async function selectRemoteObjects(query, sparqlEndpoint) {
   const stream = await fetcher.fetchBindings(sparqlEndpoint, query);
   return new Promise((resolve, reject) => {
     const values = [];
-    stream.on("data", (bindings) => {
+    stream.on('data', (bindings) => {
       const keys = Object.keys(bindings);
       // Extract the values from the bindings object
       if (keys.length < 2) {
@@ -24,14 +24,11 @@ export async function selectRemoteObjects(query, sparqlEndpoint) {
           }
         }
       } else {
-        const value = Object.keys(bindings).reduce(
-          (acc, key) => ((acc[key] = bindings[key]?.value), acc),
-          {},
-        );
+        const value = Object.keys(bindings).reduce((acc, key) => ((acc[key] = bindings[key]?.value), acc), {});
         values.push(value);
       }
     });
-    stream.on("end", () => {
+    stream.on('end', () => {
       resolve(values);
     });
   });
@@ -45,19 +42,15 @@ export async function selectRemoteObjects(query, sparqlEndpoint) {
  * @param {object | undefined} frameObj an optional frame object for json-ld
  * @returns a JSON-LD object
  */
-export async function constructJsonLd(
-  query,
-  sparqlEndpoint,
-  frameObj = undefined,
-) {
+export async function constructJsonLd(query, sparqlEndpoint, frameObj = undefined) {
   const fetcher = new SparqlEndpointFetcher({});
   const stream = await fetcher.fetchTriples(sparqlEndpoint, query);
   return new Promise((resolve, _reject) => {
     const results = [];
-    stream.on("data", (quad) => {
+    stream.on('data', (quad) => {
       results.push(quad);
     });
-    stream.on("end", () => {
+    stream.on('end', () => {
       resolve(results);
     });
   })

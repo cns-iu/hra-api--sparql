@@ -38,10 +38,9 @@ const proxyOptions = {
   },
   onError(err, req, res) {
     console.error(err);
-    res.status(500).send("Proxy Error");
+    res.status(500).send('Proxy Error');
   },
-  timeout: 90000
-
+  timeout: 90000,
 };
 
 const sparqlProxy = createProxyMiddleware('/v1/sparql', proxyOptions);
