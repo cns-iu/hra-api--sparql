@@ -193,3 +193,7 @@ export async function getAggregateResults(filter) {
     console.error("Error executing SPARQL query:", error.message);
   }
 }
+
+export async function getHuBMAPRuiLocation(filter) {
+  return getRuiLocation({ ...filter, consortiums: ['HuBMAP'] });
+}

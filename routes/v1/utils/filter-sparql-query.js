@@ -9,6 +9,7 @@ export function filterSparqlQuery(sparqlQuery, filter = {}) {
     sex,
     technology,
     tmc,
+    consortiums
   } = filter;
   let sparqlFilter = "";
   if (sex != undefined) {
@@ -70,6 +71,12 @@ export function filterSparqlQuery(sparqlQuery, filter = {}) {
     const technologies = technology.map((s) => `"${s}"`).join(",");
     sparqlFilter += `
         FILTER(?technology IN (${technologies}))
+      `;
+  }
+  if (consortiums?.length > 0) {
+    const terms = consortiums.map((s) => `"${s}"`).join(" ");
+    sparqlFilter += `
+        FILTER(?consortiums IN (${terms}))
       `;
   }
   return sparqlQuery.replace("#{{FILTER}}", sparqlFilter);

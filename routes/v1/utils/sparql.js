@@ -50,7 +50,6 @@ export async function constructJsonLd(
   sparqlEndpoint,
   frameObj = undefined,
 ) {
-  console.log(query);
   const fetcher = new SparqlEndpointFetcher({});
   const stream = await fetcher.fetchTriples(sparqlEndpoint, query);
   return new Promise((resolve, _reject) => {

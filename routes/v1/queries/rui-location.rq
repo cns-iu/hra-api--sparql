@@ -9,6 +9,7 @@ CONSTRUCT {
             ccf:sex ?sex;
     		ccf:age ?age;
     		ccf:bmi ?bmi;
+            ccf:consortium_name ?consortiums;
     		ccf:tissue_provider_name ?tmc ;
             rdfs:label ?donorLabel;
             rdfs:comment ?donorDescription;
@@ -101,6 +102,7 @@ WHERE
         ccf:sex ?sex;
         ccf:age ?age;
         ccf:bmi ?bmi;
+        ccf:consortium_name ?consortiums;
         ccf:tissue_provider_name ?tmc ;
         rdfs:label ?donorLabel;
         rdfs:comment ?donorDescription;

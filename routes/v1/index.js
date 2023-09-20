@@ -11,6 +11,7 @@ import {
   getRuiLocation,
   getAggregateResults,
   getDbStatus,
+  getHuBMAPRuiLocation
 } from "./utils/api-endpoints.js";
 import { forwardSparqlQuery } from "./utils/forward-sparql-db.js";
 
@@ -33,5 +34,6 @@ routes.get("/celltype-tree-model", forwardSparqlQuery(getCellTypeTreeModel));
 routes.get("/rui-location", forwardSparqlQuery(getRuiLocation));
 routes.get("/aggregate-results", forwardSparqlQuery(getAggregateResults));
 routes.get("/db-status", forwardSparqlQuery(getDbStatus));
+routes.get("/hubmap/rui_locations.jsonld", forwardSparqlQuery(getHuBMAPRuiLocation));
 
 export default routes;

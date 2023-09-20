@@ -11,6 +11,7 @@ const FILTER_DEFAULTS = {
   ontologyTerms: [],
   cellTypeTerms: [],
   spatialSearches: [],
+  consortiums: []
 };
 
 function clamp(value, min, max) {
@@ -166,6 +167,10 @@ function processParameter(result, key, value) {
     case "celltypeterms":
     case "cell-type-terms":
       setIfDefined(result, "cellTypeTerms", parseArray(value));
+      break;
+    
+    case "consortiums":
+      setIfDefined(result, "consortiums", parseArray(value));
       break;
   }
 }
