@@ -149,7 +149,18 @@ export async function getAggregateResults(filter) {
     console.error('Error executing SPARQL query:', error.message);
   }
 }
-
+export async function getScene(filter) {
+  try {
+    const results = []
+    return results;
+  } catch (error) {
+    console.error('Error executing SPARQL query:', error.message);
+  }
+}
 export async function getHuBMAPRuiLocation(filter) {
   return getRuiLocation({ ...filter, consortiums: ['HuBMAP'] });
+}
+
+export async function getGTeXRuiLocation(filter) {
+  return getRuiLocation({ ...filter, consortiums: ['GTEx'] });
 }

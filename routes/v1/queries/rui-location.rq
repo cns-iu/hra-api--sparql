@@ -30,7 +30,7 @@ CONSTRUCT {
             ccf:dimension_unit ?dimension_units ;
             ccf:annotations ?ccf_annotations .
 
-  ?SpatialPlacement rdf:type ccf:SpatialPlacement ;
+    ?SpatialPlacement rdf:type ccf:SpatialPlacement ;
         dcterms:created ?placement_date;
         ccf:x_scaling ?x_scaling;
         ccf:y_scaling ?y_scaling;
@@ -62,6 +62,8 @@ CONSTRUCT {
 }
 FROM <https://purl.org/ccf/releases/2.2.1/ccf.owl> # Ontology / CCF.OWL
 FROM <https://ccf-api.hubmapconsortium.org/v1/hubmap/rui_locations.jsonld> # Experimental data / data sets / rui locations
+FROM <https://ccf-api.hubmapconsortium.org/v1/gtex/rui_locations.jsonld>
+
 WHERE
 {
     ?sample rdf:type ccf:Sample .
@@ -98,10 +100,8 @@ WHERE
         ccf:placement_relative_to ?target ;
         ccf:placement_for ?rui_location .
            
-    ?tissueDonor rdf:type ?donorType ;
+    ?tissueDonor rdf:type ccf:Donor;
         ccf:sex ?sex;
-        ccf:age ?age;
-        ccf:bmi ?bmi;
         ccf:consortium_name ?consortiums;
         ccf:tissue_provider_name ?tmc ;
         rdfs:label ?donorLabel;
@@ -112,17 +112,19 @@ WHERE
         rdfs:comment ?datasetDescription ;
         rdfs:label ?datasetLabel .
 
-  OPTIONAL {
-    ?sections 
-        ccf:subdivided_into_sections ?sample;
-        ccf:sample_type "Tissue Section" ;
-        ccf:section_number ?sectionNumber ;
-        rdfs:label ?sectionLabel ;
-        rdfs:comment ?sectionDescription ;
-        ccf:url ?link .
-  }
+    OPTIONAL {
+        ?sections 
+            ccf:subdivided_into_sections ?sample;
+            ccf:sample_type "Tissue Section" ;
+            ccf:section_number ?sectionNumber ;
+            rdfs:label ?sectionLabel ;
+            rdfs:comment ?sectionDescription ;
+            ccf:url ?link .
+        ?tissueDonor rdf:type ?donorType ;
+            ccf:age ?age;
+            ccf:bmi ?bmi;
+    }
 
-  	
 	#{{FILTER}}
 	FILTER (?sampleType = "Tissue Block")
 

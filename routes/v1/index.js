@@ -12,6 +12,8 @@ import {
   getRuiLocation,
   getTissueBlocks,
   getTissueProviderNames,
+  getGTeXRuiLocation,
+  getScene
 } from './utils/api-endpoints.js';
 import { forwardSparqlQuery } from './utils/forward-sparql-db.js';
 
@@ -29,5 +31,7 @@ routes.get('/rui-location', forwardSparqlQuery(getRuiLocation));
 routes.get('/aggregate-results', forwardSparqlQuery(getAggregateResults));
 routes.get('/db-status', forwardSparqlQuery(getDbStatus));
 routes.get('/hubmap/rui_locations.jsonld', forwardSparqlQuery(getHuBMAPRuiLocation));
+routes.get('/gtex/rui_locations.jsonld', forwardSparqlQuery(getGTeXRuiLocation));
+routes.get('/scene', forwardSparqlQuery(getScene));
 
 export default routes;
