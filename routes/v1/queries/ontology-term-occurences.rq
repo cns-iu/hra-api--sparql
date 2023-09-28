@@ -23,6 +23,6 @@ WHERE {
 
     #{{FILTER}}
   }
-  GROUP BY ?annotation ?age ?bmi ?sex
+  GROUP BY ?annotation
   ORDER BY DESC(?count)
 }

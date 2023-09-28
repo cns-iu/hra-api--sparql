@@ -5,6 +5,7 @@ PREFIX ccf: <http://purl.org/ccf/>
 CONSTRUCT {
     ?cell_type ccf:count ?count .
 }
+FROM <https://purl.org/ccf/releases/2.2.1/ccf.owl> # Ontology / CCF.OWL
 WHERE {
     SELECT DISTINCT ?cell_type (COUNT(?cell_type) as ?count)
     WHERE {
@@ -13,7 +14,7 @@ WHERE {
                 ccf:comes_from ?tissueDonor .
 
         ?rui_location a ccf:SpatialEntity ;
-                      ccf:collides_with ?annotation .
+                    ccf:collides_with ?annotation .
         ?cell_type ccf:ccf_located_in ?annotation .
 
         ?tissueDonor ccf:sex ?sex ;
@@ -21,9 +22,10 @@ WHERE {
                      ccf:bmi ?bmi ; 
                      ccf:tissue_provider_name ?tmc .
         ?dataset ccf:technology ?technology .
-
-        #{{FILTER}}
+            #{{FILTER}}
     }
     GROUP BY ?cell_type
     ORDER BY DESC(?count)
+    
+
 }

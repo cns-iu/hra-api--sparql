@@ -5,18 +5,18 @@ import {
   getCellTypeTreeModel,
   getDatasetTechnologyNames,
   getDbStatus,
-  getHuBMAPRuiLocation,
+  getHubmapRuiLocations,
   getOntologyTermOccurences,
   getOntologyTreeModel,
   getReferenceOrgans,
-  getRuiLocation,
+  getRuiLocations,
   getTissueBlocks,
   getTissueProviderNames,
-  getGTeXRuiLocation,
-  getScene
+  getGtexRuiLocations,
+  getScene,
 } from './utils/api-endpoints.js';
 import { forwardSparqlQuery } from './utils/forward-sparql-db.js';
-
+import { getSpatialPlacement } from './utils/get-spatial-placement.js';
 const routes = express.Router();
 
 routes.get('/technology-names', forwardSparqlQuery(getDatasetTechnologyNames));
@@ -27,11 +27,12 @@ routes.get('/tissue-blocks', forwardSparqlQuery(getTissueBlocks));
 routes.get('/reference-organs', forwardSparqlQuery(getReferenceOrgans));
 routes.get('/ontology-tree-model', forwardSparqlQuery(getOntologyTreeModel));
 routes.get('/celltype-tree-model', forwardSparqlQuery(getCellTypeTreeModel));
-routes.get('/rui-location', forwardSparqlQuery(getRuiLocation));
+routes.get('/rui-locations', forwardSparqlQuery(getRuiLocations));
 routes.get('/aggregate-results', forwardSparqlQuery(getAggregateResults));
 routes.get('/db-status', forwardSparqlQuery(getDbStatus));
-routes.get('/hubmap/rui_locations.jsonld', forwardSparqlQuery(getHuBMAPRuiLocation));
-routes.get('/gtex/rui_locations.jsonld', forwardSparqlQuery(getGTeXRuiLocation));
+routes.get('/hubmap/rui_locations.jsonld', forwardSparqlQuery(getHubmapRuiLocations));
+routes.get('/gtex/rui_locations.jsonld', forwardSparqlQuery(getGtexRuiLocations));
 routes.get('/scene', forwardSparqlQuery(getScene));
+routes.post('/get-spatial-placement', getSpatialPlacement());
 
 export default routes;

@@ -129,10 +129,10 @@ export async function getCellTypeTreeModel(filter) {
     console.error('Error executing SPARQL query:', error.message);
   }
 }
-export async function getRuiLocation(filter) {
+export async function getRuiLocations(filter) {
   try {
-    const queryFilePath = getSparqlFilePath('rui-location.rq');
-    const jsonFrame = getSparqlFilePath('jsonld-frames/rui-location.jsonld');
+    const queryFilePath = getSparqlFilePath('rui-locations.rq');
+    const jsonFrame = getSparqlFilePath('jsonld-frames/rui-locations.jsonld');
     const results = executeFilteredConstructQuery(queryFilePath, filter, jsonFrame);
     return results;
   } catch (error) {
@@ -151,16 +151,16 @@ export async function getAggregateResults(filter) {
 }
 export async function getScene(filter) {
   try {
-    const results = []
+    const results = [];
     return results;
   } catch (error) {
     console.error('Error executing SPARQL query:', error.message);
   }
 }
-export async function getHuBMAPRuiLocation(filter) {
-  return getRuiLocation({ ...filter, consortiums: ['HuBMAP'] });
+export async function getHubmapRuiLocations(filter) {
+  return getRuiLocations({ ...filter, consortiums: ['HuBMAP'] });
 }
 
-export async function getGTeXRuiLocation(filter) {
-  return getRuiLocation({ ...filter, consortiums: ['GTEx'] });
+export async function getGtexRuiLocations(filter) {
+  return getRuiLocations({ ...filter, consortiums: ['GTEx'] });
 }

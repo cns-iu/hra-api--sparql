@@ -28,6 +28,8 @@ CONSTRUCT {
 }
 FROM <https://purl.org/ccf/releases/2.2.1/ccf.owl> # Ontology / CCF.OWL
 FROM <https://ccf-api.hubmapconsortium.org/v1/hubmap/rui_locations.jsonld> # Experimental data / data sets / rui locations
+FROM <https://ccf-api.hubmapconsortium.org/v1/gtex/rui_locations.jsonld>
+
 WHERE
 {
 
