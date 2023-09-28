@@ -45,7 +45,6 @@ export async function selectRemoteObjects(query, sparqlEndpoint) {
 export async function constructJsonLd(query, sparqlEndpoint, frameObj = undefined) {
   const fetcher = new SparqlEndpointFetcher({});
   const stream = await fetcher.fetchTriples(sparqlEndpoint, query);
-  console.log(query);
   return new Promise((resolve, _reject) => {
     const results = [];
     stream.on('data', (quad) => {

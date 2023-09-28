@@ -69,14 +69,6 @@ function parseMinMaxRange(value, min, max) {
   return parseRange([value?.['min'], value?.['max']], min, max);
 }
 
-function parseArray(value) {
-  if (typeof value === 'string') {
-    return value.includes(',') ? value.split(',') : [value];
-  }
-
-  return Array.isArray(value) ? value : undefined;
-}
-
 function parseSpatial(value) {
   if (typeof value === 'string') {
     try {
@@ -108,6 +100,16 @@ function parseSpatial(value) {
   }
   return undefined;
 }
+
+function parseArray(value, excludeValue) {
+  if (typeof value === 'string') {
+    const values = value.includes(',') ? value.split(',') : [value];
+    const filteredValues = values.filter(val => val !== excludeValue);
+    return filteredValues.length > 0 ? filteredValues : undefined;
+  }
+  return Array.isArray(value) ? value : undefined;
+}
+
 
 function processParameter(result, key, value) {
   let minAge, maxAge, minBMI, maxBMI;
@@ -157,12 +159,12 @@ function processParameter(result, key, value) {
 
     case 'ontologyterms':
     case 'ontology-terms':
-      setIfDefined(result, 'ontologyTerms', parseArray(value));
+      setIfDefined(result, 'ontologyTerms', parseArray(value, 'http://purl.obolibrary.org/obo/UBERON_0013702'));
       break;
 
     case 'celltypeterms':
     case 'cell-type-terms':
-      setIfDefined(result, 'cellTypeTerms', parseArray(value));
+      setIfDefined(result, 'cellTypeTerms', parseArray(value, 'http://purl.obolibrary.org/obo/CL_0000000'));
       break;
 
     case 'consortiums':
