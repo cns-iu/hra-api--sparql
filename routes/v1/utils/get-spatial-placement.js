@@ -1,3 +1,11 @@
+/**
+ * Create an Express route handler that generates spatial placement information for a given target.
+ * This information includes the source, target, placement date, translation, rotation, and scaling data.
+ *
+ * @param {Object} req - The Express request object containing the target_iri and rui_location in the request body.
+ * @param {Object} res - The Express response object used to send the generated spatial placement JSON.
+ * @param {function} _next - The Express next middleware function (not used in this context).
+ */
 export function getSpatialPlacement() {
   return async (req, res, _next) => {
     const { target_iri, rui_location } = req.body;
