@@ -1,3 +1,4 @@
+
 export function filterSparqlQuery(sparqlQuery, filter = {}) {
   const { ontologyTerms, cellTypeTerms, minAge, maxAge, minBMI, maxBMI, sex, technology, tmc, consortiums } = filter;
   let sparqlFilter = '';

@@ -1,3 +1,15 @@
+# This SPARQL query constructs a result set representing detailed information about tissue donors, samples, datasets, and sections.
+# It combines data from the CCF ontology and experimental data sources.
+#  
+#  * Query Structure:
+#     The query uses the CONSTRUCT statement to build a result set containing information about tissue donors, samples, datasets, and sections.
+#     It retrieves data from the CCF ontology and external data sources.
+#     The query constructs nodes for various entities, including tissue donors, samples, datasets, and sections.
+#     It captures details such as donor type, tissue provider name, labels, comments, URLs, sex, age, BMI, technology, thumbnails,
+#     section count, section size, and more.
+#  * Note: The filter parameters (e.g., age, sex, BMI) can be added dynamically by the API user.
+#          The string filter commented below serves as a placeholder and will be replaced with the appropriate filter conditions
+#          when used in the API call.
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX ccf: <http://purl.org/ccf/>
