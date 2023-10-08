@@ -15,7 +15,7 @@ This application serves as a SPARQL API using Node.js. It can execute SPARQL que
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/cns-iu/hra-api--sparql.git
    ```
 
 2. Navigate to the project directory:
