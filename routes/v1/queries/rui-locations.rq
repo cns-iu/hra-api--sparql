@@ -93,7 +93,6 @@ WHERE
         ccf:z_dimension ?z_dimension;
         ccf:dimension_unit ?dimension_units ;
         ccf:collides_with ?ccf_annotations .
-
   ?SpatialPlacement rdf:type ccf:SpatialPlacement ;
         dcterms:created ?placement_date;
         ccf:x_scaling ?x_scaling;

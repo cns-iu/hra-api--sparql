@@ -59,6 +59,10 @@ WHERE {
         ccf:section_size ?sectionSize;
         ccf:section_size_unit ?sectionUnit ;
     	 rdfs:label ?label .
+  ?spatialEntityId a ccf:SpatialEntity ;
+                  ccf:collides_with ?annotation .
+    ?cell_type ccf:ccf_located_in ?annotation .
+
   ?tissueDonor rdf:type ?donorType ;
               ccf:tissue_provider_name ?tmc ;
               rdfs:label ?donorLabel;

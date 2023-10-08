@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router } from "express";
 
 export const euiRoute = (_req, res, _next) => {
   res.send(`<!doctype html>
@@ -28,6 +28,6 @@ export const euiRoute = (_req, res, _next) => {
   `);
 };
 
-const routes = Router().get('/eui/', euiRoute);
+const routes = Router().get("/eui/", euiRoute);
 
 export default routes;
