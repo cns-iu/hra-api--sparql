@@ -53,6 +53,6 @@ routes.get(
 );
 routes.get("/scene", forwardSparqlQuery(getScene));
 routes.post("/get-spatial-placement", getSpatialPlacement());
-routes.get("/biomarker-tree-model", getBiomarkerTreeModel());
-routes.get("/biomarker-term-occurences", getBiomarkerTermOccurences());
+routes.get("/biomarker-tree-model", forwardSparqlQuery(getBiomarkerTreeModel));
+routes.get("/biomarker-term-occurences", forwardSparqlQuery(getBiomarkerTermOccurences));
 export default routes;
