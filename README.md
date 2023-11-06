@@ -1,3 +1,7 @@
+# ARCHIVED!
+
+This line of work continues at <https://github.com/x-atlas-consortia/hra-api>!
+
 # hra-api--sparql
 
 HRA-API implementation that uses (mostly) SPARQL
